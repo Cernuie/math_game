@@ -9,7 +9,7 @@ class Game
   end
   #line that puts out scores
   def scores
-    puts "P1: #{@player1.score}/3 vs P2: #{@player2.score}/3"
+    puts "P1: #{@player1.score}/3 vs P2: #{@player2.score}/3 \n -- NEW TURN --"
   end
   #check if player 1's turn
   def which_turn?
@@ -28,6 +28,9 @@ class Game
     end
   end
 
+  def goodbye
+    puts "-- GAME OVER -- \nGood bye!"
+  end
   def play
     while @player1.alive? && @player2.alive?
       #create new question
@@ -53,12 +56,10 @@ class Game
     end
     if !@player1.alive?
       puts "Player 2 wins with a score of #{@player2.score}/3"
+      goodbye
     elsif !@player2.alive?
       puts "Player 1 wins with a score of #{@player1.score}/3"
+      goodbye
     end
   end
 end
-
-new_game = Game.new
-
-new_game.play

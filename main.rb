@@ -1,4 +1,9 @@
+require "./players"
+require "./questions"
+require "./game"
 
+new_game = Game.new
 
-name = gets.chomp
-puts "Hello #{name}, nice to meet you!"
+puts "Welcome to the math game!"
+
+new_game.play
