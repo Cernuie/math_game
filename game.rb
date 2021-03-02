@@ -29,22 +29,34 @@ class Game
   end
 
   def play
-    #create new question
-    question = Question.new
-    #prompt for player
-    puts "#{which_turn?}: What does #{question.num1} plus #{question.num2} equal?"
-    solution = gets.chomp.to_i
-    if question.correct?(solution)
-      puts "#{which_turn?}: Yes! You are correct."
-      scores
+    while @player1.alive? && @player2.alive?
+      #create new question
+      question = Question.new
+      #prompt for player
+      puts "#{which_turn?}: What does #{question.num1} plus #{question.num2} equal?"
+      solution = gets.chomp.to_i
+      if question.correct?(solution)
+        puts "#{which_turn?}: Yes! You are correct."
+        scores
+      else
+        #if player gets it wrong, check which player it is and subtract their score
+        puts "#{which_turn?}: Seriously? No!"
+        which_decrease(which_turn?)
+        #then puts out the scores for both players
+        scores
+      end
+    if @turn_count == 0 
+      @turn_count = 1
     else
-      #if player gets it wrong, check which player it is and subtract their score
-      puts "#{which_turn?}: Seriously? No!"
-      which_decrease(which_turn?)
-      #then puts out the scores for both players
-      scores
+      @turn_count = 0
     end
-  end  
+    end
+    if !@player1.alive?
+      puts "Player 2 wins with a score of #{@player2.score}/3"
+    elsif !@player2.alive?
+      puts "Player 1 wins with a score of #{@player1.score}/3"
+    end
+  end
 end
 
 new_game = Game.new
