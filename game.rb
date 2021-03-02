@@ -9,30 +9,42 @@ class Game
   end
   #line that puts out scores
   def scores
-    puts "P1: #{@player1.score}/3 vs P2: #{@player2.score}"
+    puts "P1: #{@player1.score}/3 vs P2: #{@player2.score}/3"
   end
   #check if player 1's turn
-  def player1s_turn?
+  def which_turn?
     if @turn_count == 0
-      return true
+      return "Player 1"
     else
-      return false
+      return "Player 2"
+    end
+  end
+
+  def which_decrease(player)
+    if player == "Player 1"
+      @player1.decrease_score
+    else
+      @player2.decrease_score
     end
   end
 
   def play
-    if player1s_turn?
-      question = Question.new
-      puts "Player 1: What does #{question.num1} plus #{question.num2} equal?"
-      solution = gets.chomp.to_i
-      if question.correct?(solution)
-        puts "Correct!"
-      else
-        puts "False!"
-      end
+    #create new question
+    question = Question.new
+    #prompt for player
+    puts "#{which_turn?}: What does #{question.num1} plus #{question.num2} equal?"
+    solution = gets.chomp.to_i
+    if question.correct?(solution)
+      puts "#{which_turn?}: Yes! You are correct."
+      scores
+    else
+      #if player gets it wrong, check which player it is and subtract their score
+      puts "#{which_turn?}: Seriously? No!"
+      which_decrease(which_turn?)
+      #then puts out the scores for both players
+      scores
     end
-  end
-  
+  end  
 end
 
 new_game = Game.new
