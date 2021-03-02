@@ -1,5 +1,5 @@
 class Player
-  
+
   attr_accessor :name, :score
 
   def initialize(name)
@@ -16,6 +16,3 @@ class Player
   end
 
 end
-
-p = Player.new('1')
-puts p.score

@@ -1,5 +1,5 @@
 class Question
-  attr_accessor :answer
+  attr_accessor :answer, :num1, :num2
   def initialize
     @num1 = rand(1..20)
     @num2 = rand(1..20)
@@ -11,7 +11,6 @@ class Question
       return false
     else
       return true
+    end
+  end
 end
-
-q = Question.new()
-puts q.answer
